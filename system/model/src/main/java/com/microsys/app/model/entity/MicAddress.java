@@ -14,7 +14,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 import com.microsys.app.common.audit.BaseAuditEntity;
+import com.microsys.app.common.customenum.CustCompEnum;
 import com.microsys.app.common.customenum.RecordStatusEnum;
+import com.microsys.app.model.entity.customtype.CustCompType;
 import com.microsys.app.model.entity.customtype.RecordStatusType;
 
 /**
@@ -45,7 +47,12 @@ public class MicAddress extends BaseAuditEntity implements Serializable {
 	@Column(name = "STATUS")
 	private RecordStatusEnum status;
 
-	private String type;
+	@Column(name = "TYPE")
+	@Type(type = CustCompType.CUST_COMP)
+	private CustCompEnum type;
+
+	@Column(name = "ZIPCODE")
+	private String zipCode;
 
 	@OneToOne(mappedBy = "custAddress")
 	private MicCustomer customer;
@@ -93,11 +100,11 @@ public class MicAddress extends BaseAuditEntity implements Serializable {
 		this.status = status;
 	}
 
-	public String getType() {
+	public CustCompEnum getType() {
 		return this.type;
 	}
 
-	public void setType(String type) {
+	public void setType(CustCompEnum type) {
 		this.type = type;
 	}
 
@@ -124,9 +131,17 @@ public class MicAddress extends BaseAuditEntity implements Serializable {
 	public void setCompany(MicCompany company) {
 		this.company = company;
 	}
-	
-	public void removeCompany(){
+
+	public void removeCompany() {
 		this.company = null;
 	}
-	
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
 }
