@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+	version="1.0">
+		<entity class="com.microsys.app.model.entity.MicAddress"></entity>
+		<entity class="com.microsys.app.model.entity.MicCompany"></entity>
+		<entity class="com.microsys.app.model.entity.MicCustomer"></entity>
+		<entity class="com.microsys.app.model.entity.MicEmailCust"></entity>
+		<entity class="com.microsys.app.model.entity.MicItem"></entity>
+		<entity class="com.microsys.app.model.entity.MicPhone"></entity>
+		<entity class="com.microsys.app.model.entity.MicPrfInv"></entity>
+		<entity class="com.microsys.app.model.entity.MicSale"></entity>
+		<entity class="com.microsys.app.model.entity.MicSaleDetl"></entity>
+		<entity class="com.microsys.app.model.entity.MicSeqNumber"></entity>
+	</entity-mappings>

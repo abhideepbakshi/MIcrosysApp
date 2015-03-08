@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="log.config.path"><![CDATA[/temp/payroll/log/]]></entry>
+	<entry key="log.config.filesize"><![CDATA[1MB]]></entry>
+	<entry key="log.config.level.root"><![CDATA[DEBUG]]></entry>
+	<entry key="log.config.level.payroll"><![CDATA[DEBUG]]></entry>
+</properties>
+ 
