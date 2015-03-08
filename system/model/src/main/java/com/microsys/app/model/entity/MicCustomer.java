@@ -20,6 +20,8 @@ import org.hibernate.annotations.Type;
 
 import com.microsys.app.common.audit.BaseAuditEntity;
 import com.microsys.app.common.customenum.RecordStatusEnum;
+import com.microsys.app.model.entity.common.MicEmailCust;
+import com.microsys.app.model.entity.common.MicPhoneCust;
 import com.microsys.app.model.entity.customtype.RecordStatusType;
 
 /**
@@ -55,12 +57,9 @@ public class MicCustomer extends BaseAuditEntity implements Serializable {
 
 	@OneToMany(mappedBy = "customerInv", cascade = CascadeType.ALL)
 	private List<MicPrfInv> performaInv;
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "PHONE_ID", referencedColumnName = "PHONE_ID") private
-	 * List<MicPhone> custPhone;
-	 */
+
+	@OneToMany(mappedBy = "customerPhone", cascade = CascadeType.ALL)
+	private List<MicPhoneCust> custPhone;
 
 	@Type(type = RecordStatusType.USER_TYPE)
 	@Column(name = "STATUS")
@@ -161,20 +160,26 @@ public class MicCustomer extends BaseAuditEntity implements Serializable {
 		return true;
 	}
 
-	/*
-	 * public List<MicPhone> getCustPhone() { return custPhone; }
-	 * 
-	 * public void setCustPhone(List<MicPhone> custPhone) { this.custPhone =
-	 * custPhone; }
-	 * 
-	 * public void addCustPhone(MicPhone phone) { if (this.custPhone == null) {
-	 * this.custPhone = new ArrayList<MicPhone>(); } this.custPhone.add(phone);
-	 * }
-	 * 
-	 * public boolean removeCustPhone(MicPhone phone) { if (this.custPhone !=
-	 * null) { return custPhone.remove(phone); }
-	 * 
-	 * return true; }
-	 */
+	public List<MicPhoneCust> getCustPhone() {
+		return custPhone;
+	}
 
+	public void setCustPhone(List<MicPhoneCust> compPhone) {
+		this.custPhone = compPhone;
+	}
+
+	public void addCustPhone(MicPhoneCust compPhone) {
+		if (this.custPhone == null) {
+			this.custPhone = new ArrayList<MicPhoneCust>();
+		}
+		this.custPhone.add(compPhone);
+	}
+
+	public boolean removeCustPhone(MicPhoneCust custPhone) {
+		if (this.custPhone != null) {
+			return this.custPhone.remove(custPhone);
+		}
+
+		return true;
+	}
 }

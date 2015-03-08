@@ -20,6 +20,8 @@ import org.hibernate.annotations.Type;
 
 import com.microsys.app.common.audit.BaseAuditEntity;
 import com.microsys.app.common.customenum.RecordStatusEnum;
+import com.microsys.app.model.entity.common.MicEmailComp;
+import com.microsys.app.model.entity.common.MicPhoneComp;
 import com.microsys.app.model.entity.customtype.RecordStatusType;
 
 /**
@@ -59,12 +61,9 @@ public class MicCompany extends BaseAuditEntity implements Serializable {
 	@OneToMany(mappedBy = "companyInv", cascade = CascadeType.ALL)
 	private List<MicPrfInv> performaInv;
 
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "PHONE_ID", referencedColumnName = "PHONE_ID") private
-	 * List<MicPhone> compPhone;
-	 */
+	@OneToMany(mappedBy = "companyPhone", cascade = CascadeType.ALL)
+	private List<MicPhoneComp> compPhone;
+
 	@Column(name = "STATUS")
 	@Type(type = RecordStatusType.USER_TYPE)
 	private RecordStatusEnum status;
@@ -170,20 +169,27 @@ public class MicCompany extends BaseAuditEntity implements Serializable {
 		return true;
 	}
 
-	/*
-	 * public List<MicPhone> getCompPhone() { return compPhone; }
-	 * 
-	 * public void setCompPhone(List<MicPhone> compPhone) { this.compPhone =
-	 * compPhone; }
-	 * 
-	 * public void addCompPhone(MicPhone phone) { if (this.compPhone == null) {
-	 * this.compPhone = new ArrayList<MicPhone>(); } this.compPhone.add(phone);
-	 * }
-	 * 
-	 * public boolean removeCompPhone(MicPhone phone) { if (this.compPhone !=
-	 * null) { return compPhone.remove(phone); }
-	 * 
-	 * return true; }
-	 */
+	public List<MicPhoneComp> getCompPhone() {
+		return compPhone;
+	}
+
+	public void setCompPhone(List<MicPhoneComp> compPhone) {
+		this.compPhone = compPhone;
+	}
+
+	public void addCompPhone(MicPhoneComp compPhone) {
+		if (this.compPhone == null) {
+			this.compPhone = new ArrayList<MicPhoneComp>();
+		}
+		this.compPhone.add(compPhone);
+	}
+
+	public boolean removeCompPhone(MicPhoneComp compPhone) {
+		if (this.compPhone != null) {
+			return this.compPhone.remove(compPhone);
+		}
+
+		return true;
+	}
 
 }
