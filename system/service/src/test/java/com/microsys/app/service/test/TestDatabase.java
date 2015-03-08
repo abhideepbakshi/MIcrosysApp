@@ -11,6 +11,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.microsys.app.common.customenum.CustCompEnum;
 import com.microsys.app.common.customenum.RecordStatusEnum;
 import com.microsys.app.model.entity.MicAddress;
 import com.microsys.app.model.entity.MicCustomer;
@@ -62,7 +63,7 @@ public class TestDatabase {
 		
 		MicAddress micAddress = new MicAddress();
 		micAddress.setAddrLineOne("7 Kaibartya Para Road");
-		micAddress.setType("Cust");
+		micAddress.setType(CustCompEnum.Customer);
 		micAddress.setCustomer(micCustomer);
 		micAddress.setStatus(RecordStatusEnum.Active);
 		micCustomer.setCustAddress(micAddress);
