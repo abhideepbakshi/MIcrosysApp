@@ -39,8 +39,13 @@ public abstract class BaseTransformer<DTO, DOMAIN> implements ITransformer<DTO, 
 				uniqueDomain.add(domain);
 			}
 		}
+		
+		if(CollectionUtils.isNotEmpty(uniqueDomain)){
+			domains.clear();
+			domains.addAll(uniqueDomain);
+		}
 
-		return uniqueDomain;
+		return domains;
 
 	}
 
@@ -65,7 +70,13 @@ public abstract class BaseTransformer<DTO, DOMAIN> implements ITransformer<DTO, 
 				uniqueDtos.add(dto);
 			}
 		}
-		return uniqueDtos;
+		
+		if(CollectionUtils.isNotEmpty(uniqueDtos)){
+			dtos.clear();
+			dtos.addAll(uniqueDtos);
+		}
+		
+		return dtos;
 
 	}
 
