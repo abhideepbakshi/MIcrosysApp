@@ -13,11 +13,23 @@ public class ItemDto {
 	public String getItemName() {
 		return itemName;
 	}
+	
+	private int hashValue;
 
 	@JsonIgnore
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
 	
+	@Override
+	public int hashCode() {
+		hashValue = itemName.hashCode();
+		return hashValue;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return hashValue == ((ItemDto)obj).hashCode() ? true : false;
+	}
 	
 }

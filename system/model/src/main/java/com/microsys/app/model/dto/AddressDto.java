@@ -4,6 +4,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonTypeName;
 
+import com.microsys.app.common.customenum.CustCompEnum;
+
 @JsonTypeName("Address")
 public class AddressDto {
 
@@ -17,10 +19,12 @@ public class AddressDto {
 	private int cityId;
 
 	@JsonProperty("Type")
-	private String type;
+	private CustCompEnum type;
 
 	@JsonProperty("ZipCode")
 	private String zipCode;
+	
+	private int hashValue = 0;
 
 	public String getAddrLineOne() {
 		return addrLineOne;
@@ -49,12 +53,12 @@ public class AddressDto {
 		this.cityId = cityId;
 	}
 
-	public String getType() {
+	public CustCompEnum getType() {
 		return type;
 	}
 
 	@JsonIgnore
-	public void setType(String type) {
+	public void setType(CustCompEnum type) {
 		this.type = type;
 	}
 
@@ -67,4 +71,17 @@ public class AddressDto {
 		this.zipCode = zipCode;
 	}
 
+	@Override
+	public int hashCode() {
+		hashValue = addrLineOne.hashCode() + addrLineTwo.hashCode() + zipCode.hashCode();
+		return hashValue;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return hashValue == ((AddressDto)obj).hashCode() ? true : false;
+	}
+	
+	
+	
 }

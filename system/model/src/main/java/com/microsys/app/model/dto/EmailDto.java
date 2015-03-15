@@ -4,6 +4,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonTypeName;
 
+import com.microsys.app.common.customenum.CustCompEnum;
+
 @JsonTypeName("Email")
 public class EmailDto {
 
@@ -14,8 +16,10 @@ public class EmailDto {
 	private String emailDetl;
 
 	@JsonProperty("Type")
-	private String type;
-	
+	private CustCompEnum type;
+
+	private int hashValue;
+
 	public String getEmailType() {
 		return emailType;
 	}
@@ -34,15 +38,24 @@ public class EmailDto {
 		this.emailDetl = emailDetl;
 	}
 
-	public String getType() {
+	public CustCompEnum getType() {
 		return type;
 	}
 
 	@JsonIgnore
-	public void setType(String type) {
+	public void setType(CustCompEnum type) {
 		this.type = type;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		hashValue = emailDetl.hashCode();
+		return hashValue;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return hashValue == ((EmailDto) obj).hashCode() ? true : false;
+	}
 
 }

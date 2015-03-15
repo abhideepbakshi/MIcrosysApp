@@ -18,6 +18,8 @@ public class PhoneDto {
 	@JsonProperty("Type")
 	private CustCompEnum type;
 
+	private int hashValue;
+	
 	public String getPhoneNo() {
 		return phoneNo;
 	}
@@ -45,5 +47,15 @@ public class PhoneDto {
 		this.type = type;
 	}
 
+	@Override
+	public int hashCode() {
+		hashValue = phoneNo.hashCode() + type.getDbCode().hashCode();
+		return hashValue;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return hashValue == ((PhoneDto)obj).hashCode() ? true : false;
+	}
 	
 }

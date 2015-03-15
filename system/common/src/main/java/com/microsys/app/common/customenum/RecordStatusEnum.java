@@ -1,6 +1,6 @@
 package com.microsys.app.common.customenum;
 
-public enum RecordStatusEnum implements UiEnum {
+public enum RecordStatusEnum implements UIEnum {
 
 	Active("Active", "A"), InActive("Inactive", "D");
 
