@@ -35,7 +35,7 @@ public class MicPhoneComp extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "PHONE_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int phoneId;
+	private Long phoneId;
 
 	@Column(name = "PHONE_NO")
 	private String phoneNo;
@@ -56,11 +56,11 @@ public class MicPhoneComp extends BaseAuditEntity implements Serializable {
 	@JoinColumn(name = "TYPE_ID", referencedColumnName = "COMP_ID")
 	private MicCompany companyPhone;
 
-	public int getPhoneId() {
+	public Long getPhoneId() {
 		return this.phoneId;
 	}
 
-	public void setPhoneId(int phoneId) {
+	public void setPhoneId(Long phoneId) {
 		this.phoneId = phoneId;
 	}
 

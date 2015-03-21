@@ -29,7 +29,7 @@ public class MicSeqNumber extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "SEQ_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int seqId;
+	private Long seqId;
 
 	@Column(name = "COMP_ID")
 	private int compId;
@@ -49,11 +49,11 @@ public class MicSeqNumber extends BaseAuditEntity implements Serializable {
 	public MicSeqNumber() {
 	}
 
-	public int getSeqId() {
+	public Long getSeqId() {
 		return this.seqId;
 	}
 
-	public void setSeqId(int seqId) {
+	public void setSeqId(Long seqId) {
 		this.seqId = seqId;
 	}
 

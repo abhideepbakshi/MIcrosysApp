@@ -32,7 +32,7 @@ public class MicAddress extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "ADDR_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int addrId;
+	private Long addrId;
 
 	@Column(name = "ADDR_LINE_ONE")
 	private String addrLineOne;
@@ -60,11 +60,11 @@ public class MicAddress extends BaseAuditEntity implements Serializable {
 	@OneToOne(mappedBy = "micAddress")
 	private MicCompany company;
 
-	public int getAddrId() {
+	public Long getAddrId() {
 		return this.addrId;
 	}
 
-	public void setAddrId(int addrId) {
+	public void setAddrId(Long addrId) {
 		this.addrId = addrId;
 	}
 

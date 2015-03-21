@@ -25,6 +25,7 @@ public class AddressFixture {
 		micAddress.setZipCode("743166");
 		micAddress.setCityId(1);
 		micAddress.setType(CustCompEnum.Customer);
+		micAddress.setAddrId(Long.parseLong(value));
 		return micAddress;
 	}
 	

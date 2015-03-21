@@ -8,74 +8,105 @@ import java.util.Set;
 import com.microsys.app.common.exception.ApplicationException;
 import com.microsys.app.common.exception.SystemException;
 import com.microsys.app.common.util.CollectionUtils;
+import com.microsys.app.common.util.IMatcher;
 import com.microsys.app.model.transformer.ITransformer;
 
 public abstract class BaseTransformer<DTO, DOMAIN> implements ITransformer<DTO, DOMAIN> {
 
-	public final Collection<DOMAIN> syncToDomain(Collection<DTO> dtos, Collection<DOMAIN> domains) throws ApplicationException {
+	public final Collection<DOMAIN> syncToDomain(Collection<DTO> dtos, Collection<DOMAIN> domains)
+			throws ApplicationException {
 
-		final Set<DOMAIN> uniqueDomain = new LinkedHashSet<DOMAIN>();
-		final Set<DTO> uniqueDtos = new LinkedHashSet<DTO>();
+		final Set<DOMAIN> insert = new LinkedHashSet<DOMAIN>();
+		final Set<DOMAIN> delete = new LinkedHashSet<DOMAIN>();
 
 		if (CollectionUtils.isNotEmpty(dtos) && CollectionUtils.isNotEmpty(domains)) {
-			uniqueDtos.addAll(dtos);
-			uniqueDomain.addAll(domains);
-			for (final DTO dto : uniqueDtos) {
-				final DOMAIN domain = getDomainInstance();
-				syncToDomain(dto, domain);
-				uniqueDomain.add(domain);
+			delete.addAll(domains);
+			for (final DTO dto : dtos) {
+
+				final DOMAIN find = CollectionUtils.find(delete, new IMatcher<DOMAIN>() {
+
+					public boolean match(DOMAIN t) {
+						return similar(dto, t);
+					}
+
+				});
+
+				if (find != null) {
+					delete.remove(find);
+					syncToDomain(dto, find);
+				} else {
+					final DOMAIN domain = getDomainInstance();
+					syncToDomain(dto, domain);
+					insert.add(domain);
+				}
+
 			}
 
 		} else if (CollectionUtils.isEmpty(dtos) && CollectionUtils.isNotEmpty(domains)) {
-			for (DOMAIN domain : domains) {
-				preDomainDeletion(domain);
-			}
-			uniqueDomain.addAll(domains);
+			/*
+			 * for (DOMAIN domain : domains) { preDomainDeletion(domain); }
+			 */
+			delete.addAll(domains);
 		} else if (CollectionUtils.isNotEmpty(dtos) && CollectionUtils.isEmpty(domains)) {
-			uniqueDtos.addAll(dtos);
-			for (DTO dto : uniqueDtos) {
+			for (DTO dto : dtos) {
 				final DOMAIN domain = getDomainInstance();
 				syncToDomain(dto, domain);
-				uniqueDomain.add(domain);
+				insert.add(domain);
 			}
 		}
-		
-		if(CollectionUtils.isNotEmpty(uniqueDomain)){
-			domains.clear();
-			domains.addAll(uniqueDomain);
+
+		for (DOMAIN domain : delete) {
+			preDomainDeletion(domain);
+		}
+		if (domains != null) {
+			domains.removeAll(delete);
+			for (DOMAIN domain : insert) {
+				if (!domains.contains(domain)) {
+					domains.add(domain);
+				}
+			}
 		}
 
 		return domains;
 
 	}
 
-	public final Collection<DTO> syncToDto(Collection<DOMAIN> domains, Collection<DTO> dtos) throws ApplicationException {
+	public final Collection<DTO> syncToDto(Collection<DOMAIN> domains, Collection<DTO> dtos)
+			throws ApplicationException {
 
-		final Set<DOMAIN> uniqueDomain = new LinkedHashSet<DOMAIN>();
-		final Set<DTO> uniqueDtos = new LinkedHashSet<DTO>();
+		final Set<DTO> insert = new LinkedHashSet<DTO>();
+		final Set<DTO> delete = new LinkedHashSet<DTO>();
 
 		if (CollectionUtils.isNotEmpty(dtos) && CollectionUtils.isNotEmpty(domains)) {
-			uniqueDtos.addAll(dtos);
-			uniqueDomain.addAll(domains);
-			for (final DOMAIN domain : uniqueDomain) {
-				final DTO dto = getDtoInstance();
-				syncToDto(domain, dto);
-				uniqueDtos.add(dto);
+			delete.addAll(dtos);
+			for (final DOMAIN domain : domains) {
+				final DTO find = CollectionUtils.find(delete, new IMatcher<DTO>() {
+
+					public boolean match(DTO t){
+						return similar(t, domain);
+					}
+
+				});
+				if (find != null) {
+					delete.remove(find);
+					syncToDto(domain, find);
+				} else {
+					final DTO dto = getDtoInstance();
+					syncToDto(domain, dto);
+					insert.add(dto);
+				}
 
 			}
 		} else if (CollectionUtils.isEmpty(dtos) && CollectionUtils.isNotEmpty(domains)) {
 			for (DOMAIN domain : domains) {
 				final DTO dto = getDtoInstance();
 				syncToDto(domain, dto);
-				uniqueDtos.add(dto);
+				insert.add(dto);
 			}
 		}
-		
-		if(CollectionUtils.isNotEmpty(uniqueDtos)){
-			dtos.clear();
-			dtos.addAll(uniqueDtos);
-		}
-		
+
+		dtos.removeAll(delete);
+		dtos.addAll(insert);
 		return dtos;
 
 	}
@@ -107,6 +138,8 @@ public abstract class BaseTransformer<DTO, DOMAIN> implements ITransformer<DTO, 
 
 	public abstract DTO syncToDto(DOMAIN domain, DTO dto) throws ApplicationException;
 
-	protected abstract boolean preDomainDeletion(DOMAIN domain) throws ApplicationException;
+	protected abstract void preDomainDeletion(DOMAIN domain) throws ApplicationException;
+	
+	public abstract boolean similar(DTO dto, DOMAIN domain);
 
 }

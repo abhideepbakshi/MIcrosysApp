@@ -37,7 +37,7 @@ public class MicCustomer extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "CUST_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int custId;
+	private Long custId;
 
 	@Column(name = "COMP_NAME")
 	private String compName;
@@ -65,11 +65,11 @@ public class MicCustomer extends BaseAuditEntity implements Serializable {
 	@Column(name = "STATUS")
 	private RecordStatusEnum status;
 
-	public int getCustId() {
+	public Long getCustId() {
 		return this.custId;
 	}
 
-	public void setCustId(int custId) {
+	public void setCustId(Long custId) {
 		this.custId = custId;
 	}
 

@@ -31,7 +31,7 @@ public class MicSaleDetl extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "SALE_DETL_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int saleDetlId;
+	private Long saleDetlId;
 
 	@ManyToOne
 	@JoinColumn(name = "ITEM_ID", referencedColumnName = "ITEM_ID")
@@ -54,11 +54,11 @@ public class MicSaleDetl extends BaseAuditEntity implements Serializable {
 	@Type(type = RecordStatusType.USER_TYPE)
 	private RecordStatusEnum status;
 
-	public int getSaleDetlId() {
+	public Long getSaleDetlId() {
 		return this.saleDetlId;
 	}
 
-	public void setSaleDetlId(int saleDetlId) {
+	public void setSaleDetlId(Long saleDetlId) {
 		this.saleDetlId = saleDetlId;
 	}
 

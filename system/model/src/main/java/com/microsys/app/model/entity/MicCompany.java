@@ -37,7 +37,7 @@ public class MicCompany extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "COMP_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int compId;
+	private Long compId;
 
 	@Column(name = "COMP_NAME")
 	private String compName;
@@ -68,11 +68,11 @@ public class MicCompany extends BaseAuditEntity implements Serializable {
 	@Type(type = RecordStatusType.USER_TYPE)
 	private RecordStatusEnum status;
 
-	public int getCompId() {
+	public Long getCompId() {
 		return this.compId;
 	}
 
-	public void setCompId(int compId) {
+	public void setCompId(Long compId) {
 		this.compId = compId;
 	}
 

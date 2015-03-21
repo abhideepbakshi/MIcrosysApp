@@ -36,7 +36,7 @@ public class MicPrfInv extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "PRF_INV_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int prfInvId;
+	private Long prfInvId;
 
 	@ManyToOne
 	@JoinColumn(name = "COMP_ID", referencedColumnName = "COMP_ID")
@@ -60,11 +60,11 @@ public class MicPrfInv extends BaseAuditEntity implements Serializable {
 	@OneToOne(mappedBy = "prfInvId", cascade = CascadeType.ALL)
 	private MicSale sale;
 
-	public int getPrfInvId() {
+	public Long getPrfInvId() {
 		return this.prfInvId;
 	}
 
-	public void setPrfInvId(int prfInvId) {
+	public void setPrfInvId(Long prfInvId) {
 		this.prfInvId = prfInvId;
 	}
 

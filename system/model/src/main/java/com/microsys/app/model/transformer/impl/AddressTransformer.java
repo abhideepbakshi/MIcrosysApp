@@ -9,7 +9,7 @@ public class AddressTransformer extends BaseTransformer<AddressDto, MicAddress> 
 	@Override
 	public MicAddress syncToDomain(AddressDto dto, MicAddress domain) throws ApplicationException {
 		domain.setAddrLineOne(dto.getAddrLineOne());
-		domain.setAddrLineOne(dto.getAddrLineTwo());
+		domain.setAddrLineTwo(dto.getAddrLineTwo());
 		domain.setCityId(dto.getCityId());
 		domain.setZipCode(dto.getZipCode());
 		domain.setType(dto.getType());
@@ -27,10 +27,18 @@ public class AddressTransformer extends BaseTransformer<AddressDto, MicAddress> 
 	}
 
 	@Override
-	protected boolean preDomainDeletion(MicAddress domain) throws ApplicationException {
-		return false;
+	protected void preDomainDeletion(MicAddress domain) throws ApplicationException {
+			domain.setCompany(null);
+			domain.setCustomer(null);
 	}
 
+	@Override
+	public boolean similar(AddressDto dto, MicAddress domain){
+		return (dto.getAddrLineOne().equals(domain.getAddrLineOne()) && dto.getAddrLineTwo().equals(domain.getAddrLineTwo())
+				&& dto.getCityId() == domain.getCityId() && dto.getZipCode().equals(domain.getZipCode()));
+	}
+
+	
 	
 
 }

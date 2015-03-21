@@ -35,7 +35,7 @@ public class MicSale extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "SALE_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int saleId;
+	private Long saleId;
 
 	@Column(name = "GRAND_AMT")
 	private double grandAmt;
@@ -60,11 +60,11 @@ public class MicSale extends BaseAuditEntity implements Serializable {
 	@OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
 	private List<MicSaleDetl> saleDetl;
 
-	public int getSaleId() {
+	public Long getSaleId() {
 		return this.saleId;
 	}
 
-	public void setSaleId(int saleId) {
+	public void setSaleId(Long saleId) {
 		this.saleId = saleId;
 	}
 

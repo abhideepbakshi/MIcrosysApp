@@ -33,7 +33,7 @@ public class MicItem extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "ITEM_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int itemId;
+	private Long itemId;
 
 	@Column(name = "ITEM_DESC")
 	private String itemDesc;
@@ -45,11 +45,11 @@ public class MicItem extends BaseAuditEntity implements Serializable {
 	@OneToMany(mappedBy="item", cascade = CascadeType.ALL)
 	private List<MicSaleDetl> saleDetl;
 	
-	public int getItemId() {
+	public Long getItemId() {
 		return this.itemId;
 	}
 
-	public void setItemId(int itemId) {
+	public void setItemId(Long itemId) {
 		this.itemId = itemId;
 	}
 

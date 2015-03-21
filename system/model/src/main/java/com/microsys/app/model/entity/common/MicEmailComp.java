@@ -35,7 +35,7 @@ public class MicEmailComp extends BaseAuditEntity implements Serializable {
 	@Id
 	@Column(name = "EMAIL_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int emailId;
+	private Long emailId;
 
 	@Column(name = "EMAIL_DETL")
 	private String emailDetl;
@@ -56,11 +56,11 @@ public class MicEmailComp extends BaseAuditEntity implements Serializable {
 	@JoinColumn(name = "TYPE_ID", referencedColumnName = "COMP_ID")
 	private MicCompany company;
 
-	public int getEmailId() {
+	public Long getEmailId() {
 		return this.emailId;
 	}
 
-	public void setEmailId(int emailId) {
+	public void setEmailId(Long emailId) {
 		this.emailId = emailId;
 	}
 
