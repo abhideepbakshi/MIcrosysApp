@@ -1,6 +1,6 @@
 package com.microsys.app.common.customenum;
 
-public interface UIEnum {
+public interface UiEnum {
 
 	public String getUiCode();
 	public String getDbCode();

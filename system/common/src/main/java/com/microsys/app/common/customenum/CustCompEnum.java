@@ -1,6 +1,6 @@
 package com.microsys.app.common.customenum;
 
-public enum CustCompEnum implements UIEnum {
+public enum CustCompEnum implements UiEnum {
 	Company("Company", "COMP"),
 	Customer("Customer", "CUST");
 
